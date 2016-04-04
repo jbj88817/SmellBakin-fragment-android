@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 public class ViewPagerFragment extends Fragment {
 
     public static final String KEY_RECIPE_INDEX = "recipe_index";
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,12 +25,18 @@ public class ViewPagerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
 
         final IngredientsFragment ingredientsFragment = new IngredientsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY_RECIPE_INDEX, index);
+        ingredientsFragment.setArguments(bundle);
         final DirectionsFragment directionsFragment = new DirectionsFragment();
+        bundle = new Bundle();
+        bundle.putInt(KEY_RECIPE_INDEX, index);
+        directionsFragment.setArguments(bundle);
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-               return position == 0 ? ingredientsFragment : directionsFragment;
+                return position == 0 ? ingredientsFragment : directionsFragment;
             }
 
             @Override
